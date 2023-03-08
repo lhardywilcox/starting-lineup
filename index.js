@@ -1,11 +1,12 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const Employee = require('./Employee');
+const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
+const teamArray = [];
 
 const questions = [
     {
@@ -24,29 +25,60 @@ const questions = [
         message: 'What is the employee\'s email?',
     },
     {
-        type: 'input',
+        type: 'list',
         name: 'role',
         message: 'What is the employee\'s role?',
+        choices: ['Employee', 'Manager', 'Engineer', 'Intern'],
     },
     {
         type: 'input',
-        name: 'office number',
-        message: 'What is the employee\'s office number?',
+        name: 'office_number',
+        message: 'What is the manager\'s office number?',
+        when: (answers) => answers.role === 'Manager',
     },
+    /*   {
+          type: 'list',
+          name: 'options',
+          message: 'Would you like to:',
+          choices: ['Build an engineer?', 'Build an intern', 'Finish building your team?'],
+      }, */
     {
         type: 'input',
         name: 'github',
-        message: 'What is the employee\' github?',
+        message: 'What is the engineer\'s github?',
+        when: (answers) => answers.role === 'Engineer',
     },
     {
         type: 'input',
         name: 'school',
-        message: 'What is the employee\'s school?',
+        message: 'What is the intern\'s school?',
+        when: (answers) => answers.role === 'Intern'
     },
-]
+    {
+        type: 'confirm',
+        name: 'add',
+        message: 'Would you like to add another employee?',
+    }
+];
 
-function writeInfo(data) {
-    fs.writeFile('./dist/employeeData', data, (err) => {
+
+
+inquirer.prompt(questions)
+    .then(answers => {
+        if (answers.add) {
+            teamArray.push(answers);
+            inquirer.prompt(questions);             
+        } else if (!answers.add) {
+            teamArray.push(answers);
+            console.log(teamArray);
+        }
+    });
+
+
+
+
+/* function writeInfo(data) {
+    fs.writeFile('./dist/startinglineup.html', data, (err) => {
         if (err) {
             throw error;
         } else {
@@ -54,11 +86,12 @@ function writeInfo(data) {
         }
     })
 };
+
 function init() {
     inquirer.prompt(questions)
         .then(answers => {
-            const webPage = generatePage(answers);
+            const webPage = renderWebPage(answers);
             writeInfo(data);
 
         })
-}
+} */

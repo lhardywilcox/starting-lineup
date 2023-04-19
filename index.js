@@ -8,70 +8,90 @@ const Intern = require('./lib/Intern');
 
 const teamArray = [];
 
-const questions = [
+const mgrQuestions = [
     {
         type: 'input',
         name: 'name',
-        message: 'What is the employee\'s name?',
+        message: 'What is the team manager\'s name?',
     },
     {
         type: 'input',
         name: 'id',
-        message: 'What is the employee\'s id number?',
+        message: 'What is the team manager\'s ID number?',
     },
     {
         type: 'input',
         name: 'email',
-        message: 'What is the employee\'s email?',
-    },
-    {
-        type: 'list',
-        name: 'role',
-        message: 'What is the employee\'s role?',
-        choices: ['Employee', 'Manager', 'Engineer', 'Intern'],
+        message: 'What is the team manager\'s email?',
     },
     {
         type: 'input',
         name: 'office_number',
         message: 'What is the manager\'s office number?',
-        when: (answers) => answers.role === 'Manager',
     },
-    /*   {
-          type: 'list',
-          name: 'options',
-          message: 'Would you like to:',
-          choices: ['Build an engineer?', 'Build an intern', 'Finish building your team?'],
-      }, */
+];
+
+const menuQuestion = [
+    {
+        type: 'list',
+        name: 'options',
+        message: 'Would you like to:',
+        choices: ['Build an engineer?', 'Build an intern', 'Finish building your team?'],
+    },
+];
+
+const engQuestions = [
+    {
+        type: 'input',
+        name: 'name',
+        message: 'What is the team engineer\'s name?',
+    },
+    {
+        type: 'input',
+        name: 'id',
+        message: 'What is the team engineer\'s ID number?',
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'What is the team engineer\'s email?',
+    },
     {
         type: 'input',
         name: 'github',
         message: 'What is the engineer\'s github?',
         when: (answers) => answers.role === 'Engineer',
     },
+];
+
+const intQuestions = [
+    {
+        type: 'input',
+        name: 'name',
+        message: 'What is the team intern\'s name?',
+    },
+    {
+        type: 'input',
+        name: 'id',
+        message: 'What is the team intern\'s ID number?',
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'What is the team intern\'s email?',
+    },
     {
         type: 'input',
         name: 'school',
         message: 'What is the intern\'s school?',
-        when: (answers) => answers.role === 'Intern'
+        when: (answers) => answers.role === 'Intern',
     },
-    {
-        type: 'confirm',
-        name: 'add',
-        message: 'Would you like to add another employee?',
-    }
 ];
 
-
-
-inquirer.prompt(questions)
+inquirer.prompt(mgrQuestions)
     .then(answers => {
-        if (answers.add) {
-            teamArray.push(answers);
-            inquirer.prompt(questions);             
-        } else if (!answers.add) {
-            teamArray.push(answers);
-            console.log(teamArray);
-        }
+        teamArray.push(answers);
+        console.log(teamArray);
     });
 
 

@@ -13,7 +13,7 @@ function renderManagerCard({ name, role, id, email, office_number }) {
     <a href="#" class="card-link">${office_number}</a>
   </div>
 </div>`
-}
+};
 
 function renderEngineerCard({ name, role, id, email, github }) {
     return `<div class="card" style="width: 18rem;">
@@ -25,7 +25,7 @@ function renderEngineerCard({ name, role, id, email, github }) {
     <a href="#" class="card-link">${github}</a>
   </div>
 </div>`
-}
+};
 
 function renderInternCard({ name, role, id, email, school }) {
     return `<div class="card" style="width: 18rem;">
@@ -37,7 +37,7 @@ function renderInternCard({ name, role, id, email, school }) {
       <a href="#" class="card-link">${school}</a>
     </div>
   </div>`
-}
+};
 
 
 
